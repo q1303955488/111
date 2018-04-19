@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .bys4 {
+            width: 60px;
+            height: 40px;
+            float: left;
+        }
+        .bys4 img{
+            width: 40px;
+            /*float: left;*/
+        }
+    </style>
+</head>
+
+<body>
+        <ul>
+            <li class="bys4">
+                <div id="preview4" class="tixi">
+                    <!--<img src="${base}/${res}/imgs/yyzz.png"/></br>-->
+                    <span>添加图片</span>
+                    <img   id= "pic" src="${base}/${res}/imgs/jh.png" onclick='$("#ceshi4").trigger("click");void(0);addPho(this);'/>
+
+                </div>
+                <input type="file" onchange="preview2(this,'preview4');" name="environmental" id="ceshi4" style="display:none" />
+                <a href="javascript:void(0);" id="sc4"><h14>删除</h14></a>
+            </li>
+            <!--<li class="bys5">-->
+                <!--<div id="preview5">-->
+                    <!--<a href="javascript:void(0)" class="addfile" onclick="addPho(this);" >添加商铺图片</a>-->
+                    <!--&lt;!&ndash;                 						<a href="javascript:void(0)" class="delfile" style="display:none" onclick="delMes(this);">删除图片</a> &ndash;&gt;-->
+                <!--</div>-->
+            <!--</li>-->
+
+
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script>
+//    $("#sc4").click(function(){
+//        //img.attr('src',"")
+//        $("#ceshi4").val("");
+//        $("#preview4").empty();
+//        $("#preview4").append($div4);
+//    });
+//    $(function(){
+//        $("#qk").click(function(){
+//            $("#sc1").trigger("click");
+//            $("#sc2").trigger("click");
+//            $("#sc3").trigger("click");
+//            $("#sc4").trigger("click");
+//            $("#sc5").trigger("click");
+//        })
+//
+//
+//    })
+    var i=0;
+    function addPho(target1){
+        console.log(target1);
+        i=i+1;
+        var $newPho=$(target1).parent().parent();
+        var inHtml='<li class="bys4">'+
+                '<div>'+
+                '<img src="${base}/${res}/imgs/jh.png" onclick=\'$(this).parent().next().trigger("click");void(0);addPho(this);\'/>'+
+                '</div>'+
+                '<input type="file" onchange="preview2(this);" name="environmental'+i+'"  style="display:none" />'+
+                '<a href="javascript:void(0)" class="delfile"  onclick="delMes(this);">删除图片</a>'+
+                '</li>';
+
+        $newPho.after(inHtml);
+        $(".delfile").show();
+    }
+
+//  展示图片
+    function preview2(file) {
+        var prevDiv =$(file).prev()[0];
+        if (file.files && file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(evt) {
+                prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(file.files[0]);
+        } else {
+            prevDiv.innerHTML = '<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+        }
+    }
+//删除图片
+
+    var $div4 = $('<img src="${base}/${res}/imgs/yyzz.png"/></br><img src="${base}/${res}/imgs/jh.png" onclick=\'$("#ceshi4").trigger("click");void(0);\'/>');
+    $("#sc4").click(function(){
+        //img.attr('src',"")
+        $("#ceshi4").val("");
+        $("#preview4").empty();
+        $("#preview4").append($div4);
+    });
+    function delMes(target){
+        $(target).parent().remove();
+        i=i-1;
+
+    }
+</script>
